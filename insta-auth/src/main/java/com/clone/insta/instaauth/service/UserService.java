@@ -3,6 +3,7 @@ package com.clone.insta.instaauth.service;
 import com.clone.insta.instaauth.exception.EmailAlreadyExistsException;
 import com.clone.insta.instaauth.exception.ResourceNotFoundException;
 import com.clone.insta.instaauth.exception.UsernameAlreadyExistsException;
+import com.clone.insta.instaauth.messaging.UserEventSender;
 import com.clone.insta.instaauth.model.Role;
 import com.clone.insta.instaauth.model.User;
 import com.clone.insta.instaauth.repository.UserRepository;
@@ -20,7 +21,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
 
-    // TODO: Implement Kafka messaging;
+    private UserEventSender userEventSender;
 
     public UserService(UserRepository userRepository,
             PasswordEncoder passwordEncoder) {
@@ -66,7 +67,7 @@ public class UserService {
         }});
 
         User savedUser = userRepository.save(user);
-        // TODO: Add Kafka event sender
+        userEventSender.sendUserCreated(savedUser);
 
         return savedUser;
     }
@@ -81,7 +82,7 @@ public class UserService {
                     user.getUserProfile().setProfilePictureUrl(uri);
                     User savedUser = userRepository.save(user);
 
-                    // TODO: Add Kafka event sender
+                    userEventSender.sendUserUpdated(savedUser, oldProfilePic);
 
                     return savedUser;
                 })
