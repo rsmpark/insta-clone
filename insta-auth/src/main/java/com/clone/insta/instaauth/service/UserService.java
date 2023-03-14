@@ -23,7 +23,7 @@ public class UserService {
     // TODO: Implement Kafka messaging;
 
     public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -72,7 +72,7 @@ public class UserService {
     }
 
     public User updateProfilePicture(String uri, String id) {
-        log.info("update profile picture {} for user {}", uri, id);
+        log.info("Update profile picture {} for user {}", uri, id);
 
         return userRepository
                 .findById(id)
