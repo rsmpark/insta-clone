@@ -20,13 +20,14 @@ import java.util.Optional;
 public class UserService {
     private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
-
     private UserEventSender userEventSender;
 
     public UserService(UserRepository userRepository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder,
+            UserEventSender userEventSender) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userEventSender = userEventSender;
     }
 
     public List<User> findAll() {
