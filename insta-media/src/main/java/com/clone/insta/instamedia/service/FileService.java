@@ -1,5 +1,8 @@
 package com.clone.insta.instamedia.service;
 
+import com.clone.insta.instamedia.exception.InvalidFileException;
+import com.clone.insta.instamedia.exception.InvalidFileNameException;
+import com.clone.insta.instamedia.exception.StorageException;
 import com.clone.insta.instamedia.model.ImageMeta;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
