@@ -1,6 +1,7 @@
 package com.clone.insta.instamedia.controller;
 
 import com.clone.insta.instamedia.model.ImageMeta;
+import com.clone.insta.instamedia.payload.response.UploadFileResponse;
 import com.clone.insta.instamedia.service.ImageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.security.Principal;
 
 @Slf4j
 @RestController
-public class ImageUploadApi {
+public class ImageUploadController {
 
     @Autowired
     private ImageService imageService;
