@@ -1,4 +1,3 @@
-
 spring:
   application:
     name: insta-post
@@ -6,6 +5,19 @@ spring:
   data:
     mongodb:
       database: instaclone_post
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          configuration:
+            key:
+              serializer: org.apache.kafka.common.serialization.StringSerializer
+      bindings:
+        instaPostChanged:
+          destination: insta.post.changed
+          contentType: application/json
 
 server:
   port: 8001
