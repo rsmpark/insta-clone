@@ -17,12 +17,12 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
-
     private final JwtConfig jwtConfig;
 
     public JwtTokenAuthenticationFilter(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
     }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
