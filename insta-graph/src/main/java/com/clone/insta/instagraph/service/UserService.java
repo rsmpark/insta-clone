@@ -20,7 +20,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class UserService {
-
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -28,9 +27,8 @@ public class UserService {
     }
 
     public User addUser(User user) {
-
         if(userRepository.findByUsername(user.getUsername()).isPresent()) {
-            String message = String.format("username %s already exists", user.getUsername());
+            String message = String.format("Username %s already exists", user.getUsername());
             log.warn(message);
 
             throw new UsernameAlreadyExistsException(message);
@@ -38,13 +36,12 @@ public class UserService {
 
         User saveUser = userRepository.save(user);
 
-        log.info("user {} save successfully", saveUser.getUsername());
+        log.info("User {} save successfully", saveUser.getUsername());
 
         return saveUser;
     }
 
     public User updateUser(User user) {
-
         return userRepository
                 .findByUsername(user.getUsername())
                 .map(savedUser -> {
@@ -53,30 +50,30 @@ public class UserService {
                     savedUser.setProfilePic(user.getProfilePic());
 
                     savedUser = userRepository.save(savedUser);
-                    log.info("user {} updated successfully", savedUser.getUsername());
+                    log.info("User {} updated successfully", savedUser.getUsername());
 
                     return savedUser;
                 })
                 .orElseThrow(() -> new UsernameNotExistsException(
-                        String.format("user %s not exists", user.getUsername())));
+                        String.format("User %s not exists", user.getUsername())));
     }
 
     @Transactional
     public User follow(User follower, User following) {
-        log.info("user {} will follow {}",
+        log.info("User {} will follow {}",
                 follower.getUsername(), following.getUsername());
 
         User savedFollower = userRepository
                 .findByUserId(follower.getUserId())
                 .orElseGet(() -> {
-                    log.info("user {} not exists, creating it", follower.getUsername());
+                    log.info("User {} not exists, creating it", follower.getUsername());
                     return this.addUser(follower);
                 });
 
         User savedFollowing = userRepository
                 .findByUserId(following.getUserId())
                 .orElseGet(() -> {
-                    log.info("user {} not exits, creating it", following.getUsername());
+                    log.info("User {} not exits, creating it", following.getUsername());
                     return this.addUser(following);
                 });
 
@@ -95,12 +92,12 @@ public class UserService {
     }
 
     public NodeDegree findNodeDegree(String username) {
-        log.info("fetching degree for user {}", username);
+        log.info("Fetching degree for user {}", username);
 
         long out = userRepository.findOutDegree(username);
         long in = userRepository.findInDegree(username);
 
-        log.info("found {} outdegree and {} indegree for user {}", out, in, username);
+        log.info("Found {} outdegree and {} indegree for user {}", out, in, username);
 
         return NodeDegree
                 .builder()
@@ -115,7 +112,7 @@ public class UserService {
 
     public List<User> findFollowers(String username) {
         List<User> followers = userRepository.findFollowers(username);
-        log.info("found {} followers for user {}", followers.size(), username);
+        log.info("Found {} followers for user {}", followers.size(), username);
 
         return followers;
     }
@@ -125,14 +122,14 @@ public class UserService {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<User> followers = userRepository.findFollowers(username, pageable);
-        log.info("found {} followers for user {}", followers.getTotalElements(), username);
+        log.info("Found {} followers for user {}", followers.getTotalElements(), username);
 
         return buildPagedResult(followers);
     }
 
     public List<User> findFollowing(String username) {
         List<User> following = userRepository.findFollowing(username);
-        log.info("found {} that user {} is following", following.size(), username);
+        log.info("Found {} that user {} is following", following.size(), username);
 
         return following;
     }
