@@ -1,13 +1,13 @@
-
 spring:
   application:
-    name: insta-graph
+    name: insta-feed
 
   data:
-    neo4j:
-      uri: bolt://localhost:7687
-      username: neo4j
-      password: admin
+    cassandra:
+      keyspaceName: insta_feed
+      contactPoints: localhost
+      port: 9042
+      schema-action: CREATE_IF_NOT_EXISTS
 
   cloud:
     stream:
@@ -18,18 +18,18 @@ spring:
             key:
               deserializer: org.apache.kafka.common.serialization.StringDeserializer
         bindings:
-          instaUserChanged:
+          instaPostChanged:
             consumer:
               startOffset: latest
               autoCommitOffset: false
       bindings:
-        instaUserChanged:
-          destination: insta.user.changed
+        instaPostChanged:
+          destination: insta.post.changed
           contentType: application/json
           group: graphService
 
 server:
-  port: 8002
+  port: 8003
 
 eureka:
   client:
@@ -46,3 +46,15 @@ security:
     prefix: Bearer
     expiration: 86400
     secret: JwtSecretKey
+
+  service:
+    username: d245ef53-5ad5-4216-9c56-89fe0f8302a0
+    password: ef919ae4-b893-4969-b782-57978180ad33
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
