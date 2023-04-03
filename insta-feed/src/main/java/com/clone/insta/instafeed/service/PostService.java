@@ -2,6 +2,7 @@ package com.clone.insta.instafeed.service;
 
 import com.clone.insta.instafeed.client.PostServiceClient;
 import com.clone.insta.instafeed.config.JwtConfig;
+import com.clone.insta.instafeed.exception.UnableToGetPostsException;
 import com.clone.insta.instafeed.model.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

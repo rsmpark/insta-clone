@@ -2,6 +2,8 @@ package com.clone.insta.instafeed.service;
 
 import com.clone.insta.instafeed.client.AuthServiceClient;
 import com.clone.insta.instafeed.config.JwtConfig;
+import com.clone.insta.instafeed.exception.UnableToGetAccessTokenException;
+import com.clone.insta.instafeed.exception.UnableToGetUsersException;
 import com.clone.insta.instafeed.payload.UserSummary;
 import com.clone.insta.instafeed.payload.request.ServiceClientLoginRequest;
 import com.clone.insta.instafeed.payload.response.JwtAuthenticationResponse;

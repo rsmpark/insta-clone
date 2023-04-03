@@ -1,6 +1,7 @@
 package com.clone.insta.instafeed.service;
 
 import com.clone.insta.instafeed.constants.PageConstants;
+import com.clone.insta.instafeed.exception.ResourceNotFoundException;
 import com.clone.insta.instafeed.model.Post;
 import com.clone.insta.instafeed.model.UserFeed;
 import com.clone.insta.instafeed.payload.SlicedResult;
