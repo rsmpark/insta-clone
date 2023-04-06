@@ -30,20 +30,22 @@ module.exports = {
             "double"
         ],
         "import/order": [
-            "warn",
+            "error",
             {
+                groups: ["builtin", "external", "internal"],
+                pathGroups: [
+                    {
+                        pattern: "react",
+                        group: "external",
+                        position: "before"
+                    }
+                ],
+                pathGroupsExcludedImportTypes: ["react"],
+                "newlines-between": "always",
                 alphabetize: {
-                    caseInsensitive: true,
-                    order: "asc"
-                },
-                groups: [
-                    "builtin",
-                    "external",
-                    "index",
-                    "sibling",
-                    "parent",
-                    "internal"
-                ]
+                    order: "asc",
+                    caseInsensitive: true
+                }
             }
         ],
         semi: [2, "always"],
