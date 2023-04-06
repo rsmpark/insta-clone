@@ -4,6 +4,7 @@ import { Menu, Row, Col, Input, Icon } from "antd";
 import { Link, withRouter } from "react-router-dom";
 
 import "./AppHeader.css";
+import UploadPost from "../post/upload/UploadPost";
 const Search = Input.Search;
 
 class AppHeader extends Component {
@@ -39,6 +40,9 @@ class AppHeader extends Component {
 
                     <Col span={6}>
                         <Search />
+                    </Col>
+                    <Col>
+                        <UploadPost onGetUserPosts={this.props.onGetUserPosts} />
                     </Col>
 
                     <Col span={8} push={4}>
