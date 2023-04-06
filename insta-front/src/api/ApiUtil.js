@@ -1,4 +1,4 @@
-import {API_BASE_URL, ACCESS_TOKEN} from "../common/constants";
+import { ACCESS_TOKEN, API_BASE_URL } from "../common/constants";
 
 const request = options => {
     const headers = new Headers();
@@ -14,7 +14,7 @@ const request = options => {
         );
     }
 
-    const defaults = {headers: headers};
+    const defaults = { headers };
     options = Object.assign({}, defaults, options);
 
     return fetch(options.url, options).then(response =>
@@ -27,10 +27,35 @@ const request = options => {
     );
 };
 
-export function login(loginRequest) {
+export function login (loginRequest) {
     return request({
         url: API_BASE_URL + "/auth/signin",
         method: "POST",
         body: JSON.stringify(loginRequest)
+    });
+}
+
+export function uploadImage (uploadImageRequest) {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject(new Error("No access token set."));
+    }
+
+    return request({
+        setContentType: false,
+        url: API_BASE_URL + "/media/images",
+        method: "POST",
+        body: uploadImageRequest
+    });
+}
+
+export function createPost (createPostRequest) {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject(new Error("No access token set."));
+    }
+
+    return request({
+        url: API_BASE_URL + "/post/posts",
+        method: "POST",
+        body: JSON.stringify(createPostRequest)
     });
 }
