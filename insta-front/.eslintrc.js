@@ -29,13 +29,19 @@ module.exports = {
             "warn",
             "double"
         ],
+        "react/no-unescaped-entities": 0,
         "import/order": [
             "error",
             {
-                groups: ["builtin", "external", "internal"],
+                groups: ["builtin", "external", "internal", ["parent", "sibling"]],
                 pathGroups: [
                     {
                         pattern: "react",
+                        group: "external",
+                        position: "before"
+                    },
+                    {
+                        pattern: "react-dom",
                         group: "external",
                         position: "before"
                     }
